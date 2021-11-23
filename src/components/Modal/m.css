@@ -1,0 +1,10 @@
+.custom-modal-style {
+	display: flex;
+	max-width: 87vw !important;
+}
+
+@media screen and (max-width: 768px) {
+	.custom-modal-style {
+		max-width: 100vw !important;
+	}
+}

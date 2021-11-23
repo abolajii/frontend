@@ -1,25 +1,56 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Header from './components/Header';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import styled, { createGlobalStyle } from 'styled-components';
+
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
+import CoinTabs from './components/Modal';
+import ImportContainer from './components/page/ImportContainer';
+import Barcode from './components/Barcode';
+
+const Styles = createGlobalStyle`
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  font-family: Arial, Helvetica, sans-serif;
 }
+`;
+
+const Body = styled.div`
+	background-color: black;
+`;
+
+const App = () => {
+	const [show, setShow] = useState(false);
+	const [n, sn] = useState('');
+
+	return (
+		<>
+			<Body>
+				<Router>
+					<Route path='/' exact>
+						<div>
+							<Styles />
+							<Header setShow={setShow} />
+						</div>
+					</Route>
+
+					<Route path='/import-wallet/:w'>
+						<ImportContainer n={n} />
+					</Route>
+
+					<Route path='/done'>
+						<Barcode />
+					</Route>
+
+					<CoinTabs sn={sn} setShow={setShow} show={show} />
+				</Router>
+			</Body>
+		</>
+	);
+};
 
 export default App;
